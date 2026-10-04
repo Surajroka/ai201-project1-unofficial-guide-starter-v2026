@@ -26,15 +26,20 @@ contains the answer.
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
 
+     My advice_threads corpus contains several different student discussions, and some topics include multiple replies with different opinions. I chose 4 out of 5 because I expect retrieval to find the correct information most of the time, while allowing one question to be harder because of overlapping topics or wording.
+
 ---
 
 ## 2. Every answer names a source
 
 Every answer the system produces names at least one source document.
 
+
+
 **Why this target:**
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
+     The purpose of this system is to give answers grounded in the student advice documents rather than unsupported information. Since the retrieved chunks already contain source metadata, I expect all generated answers to identify at least one source document.
 
 ---
 
@@ -52,6 +57,7 @@ in at least 4 of 5 tries.
 **Why this target:**
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
+     The corpus is limited to student advice topics, so questions about unrelated subjects should normally have noticeably worse retrieval distances. I chose 4 out of 5 because semantic similarity may occasionally make an unrelated question appear closer to a document than expected.
 
 ---
 
@@ -68,6 +74,7 @@ in at least 4 of 5 tries.
           sentence cut in half at either end."
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
+          The advice_threads documents contain questions followed by multiple replies, and some replies depend on the surrounding discussion for context. I want most chunks to preserve enough of that discussion to make sense independently, while allowing one sampled chunk to be imperfect because thread lengths vary.
 
 
 
@@ -86,11 +93,12 @@ in at least 4 of 5 tries.
      handles badly, about source attribution being correct rather than merely
      present — anything, as long as it names a number or an observable
      outcome. -->
+     
 
 
 
 **Why this target:**
-
+I chose the expected phrases before running the questions, and each represents a concrete fact found in the source documents, such as "16GB" or "48 hours." Requiring at least 4 of 5 answers to contain the expected information gives me a measurable way to check whether retrieval and answer generation work together successfully.
 
 
 ---
