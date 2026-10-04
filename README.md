@@ -167,6 +167,9 @@ With this cutoff, all five in-scope questions passed the relevance gate and prod
 
 The rejected questions made zero model calls because the relevance gate stopped them before answer generation.
 
+## What This Does
+
+The Unofficial Guide is a retrieval-augmented question-answering system built around a corpus of student advice threads. It loads and chunks the advice documents, creates embeddings, retrieves the most relevant chunks for a user's question, and generates an answer grounded in those documents. The system can answer questions about topics such as internships, laptops, meal plans, commuting, and communicating with professors. A relevance gate prevents the system from answering questions that are not covered by the corpus. 
 # Unit 2
 
 <!-- These sections get ADDED to what's already above. Don't delete or rewrite
@@ -283,3 +286,11 @@ The rejected questions made zero model calls because the relevance gate stopped 
      differently, and why?
 
      Milestone 5. -->
+
+     ## How I Used AI
+
+I used AI as a development assistant while building and testing the project.
+
+One specific moment was choosing a chunking strategy. I asked AI to help me reason about why fixed character splitting was a poor fit for the `advice_threads` corpus. It suggested preserving paragraph and reply boundaries instead of cutting text at arbitrary character positions. I implemented a paragraph-aware `split_documents` function and then tested it myself by printing five chunks. All five sampled chunks contained enough context to understand at least one piece of advice independently.
+
+Another specific moment was tuning the relevance cutoff. I gave AI the retrieval distances from my five in-scope questions and five out-of-scope questions and asked it to help compare them. The highest in-scope distance was `0.521`, while the lowest out-of-scope distance was `0.782`. Based on that evidence, I changed the cutoff from `0.6` to `0.65` and tested it. All five in-scope questions were answered, while all five out-of-scope questions were correctly refused.
