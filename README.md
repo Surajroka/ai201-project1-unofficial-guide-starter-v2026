@@ -29,18 +29,11 @@
 
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+I used a maximum chunk size of approximately 600 characters with no fixed character overlap. Instead of splitting documents at arbitrary character positions, my `split_documents` function groups complete paragraphs and replies together until adding another paragraph would exceed the target size.
 
-<!-- What about YOUR documents made you pick these numbers? Short posts and
-     long sectioned guides don't want the same chunking, and "800 seemed
-     reasonable" earns nothing. Point at something you noticed when you read
-     the documents in Milestone 1.
+I chose this strategy because the `advice_threads` corpus consists of questions followed by individual student replies. Keeping paragraph and reply boundaries intact preserves complete thoughts and prevents sentences from being cut in half. The starter's fixed-size chunker produced 26 chunks with a shortest chunk of only 2 characters. My strategy produced 27 chunks averaging 462 characters, with the shortest chunk at 124 characters and the longest at 598.
 
-     If you changed your mind partway through, say so and say why. That's worth
-     more than pretending you got it right first time.
-
-     Milestone 3. -->
+I manually inspected five chunks produced by `chunker.py::split_documents`. All five contained enough context to understand at least one piece of student advice without needing the previous or next chunk.
 
 ## Sample Chunks
 
@@ -58,25 +51,85 @@
 ```
 ```
 
-**Chunk 2** — source: `` — produced by: ``
+Chunk 1
 
-```
-```
+Source: thread_bike_commute.txt
+Produced by: chunker.py::split_documents
 
-**Chunk 3** — source: `` — produced by: ``
+THREAD: Is a bike worth it for a 20 minute walk commute?
 
-```
-```
+--- reply 1 (14 votes) ---
+Yeah. Cuts an 18 minute walk to about 6. The thing nobody mentions is storage — covered bike parking exists at three buildings and is full by 9am at all three.
 
-**Chunk 4** — source: `` — produced by: ``
+--- reply 2 (9 votes) ---
+Counterpoint, I sold mine. Between November and March the paths are either icy or salted and salt destroys a drivetrain in one season.
 
-```
-```
+--- reply 3 (22 votes) ---
+Both true. I keep a cheap bike for September to November and walk the rest of the year. Total cost was about $120 for the bike and I don't care what happens to it.
 
-**Chunk 5** — source: `` — produced by: ``
+Chunk 2
 
-```
-```
+Source: thread_first_gen.txt
+Produced by: chunker.py::split_documents
+
+THREAD: Anything specific for first-generation students?
+
+--- reply 1 (33 votes) ---
+The advising office has a specific programme and it is genuinely good, but it is opt-in and badly publicised. Ask for it by name.
+
+--- reply 2 (41 votes) ---
+The thing I'd say: the unwritten rules are the hard part, not the coursework. Ask about the unwritten rules explicitly. People are happy to explain them and nobody volunteers them.
+
+--- reply 3 (16 votes) ---
+Emergency fund for textbooks and travel exists and is not means-tested beyond a short form.
+
+Chunk 3
+
+Source: thread_laptop_specs.txt
+Produced by: chunker.py::split_documents
+
+THREAD: How much laptop do I actually need for CS courses?
+
+--- reply 1 (31 votes) ---
+Less than the recommended spec page says. 16GB of RAM is the one number worth paying for; everything else you'll never notice.
+
+--- reply 2 (18 votes) ---
+Adding: the lab machines exist and are better than anything you'll buy. For the heavy assignments people just use those.
+
+--- reply 3 (12 votes) ---
+I did two years on an 8GB machine and it was fine until the last project, at which point it very much wasn't. 16 is the answer.
+
+Chunk 4
+
+Source: thread_office_hours_etiquette.txt
+Produced by: chunker.py::split_documents
+
+THREAD: Is it weird to go to office hours with no specific question?
+
+--- reply 1 (44 votes) ---
+No, and this is the single most common thing first years get wrong. 'I'm following the lectures but I don't feel like I understand the shape of it' is a completely normal thing to say.
+
+--- reply 2 (29 votes) ---
+They're usually empty. You are doing the instructor a favour by turning up.
+
+--- reply 3 (18 votes) ---
+If it helps, treat it as a standing appointment. Go every week for a month and it stops feeling like a thing.
+
+Chunk 5
+
+Source: thread_professor_email.txt
+Produced by: chunker.py::split_documents
+
+THREAD: Do professors actually answer email?
+
+--- reply 1 (21 votes) ---
+Varies enormously. General rule I've found: if the syllabus states a response window, it's honoured. If it doesn't, assume 48 hours and don't panic before then.
+
+--- reply 2 (33 votes) ---
+Office hours are dramatically more effective than email for anything that takes more than two sentences to answer. They're also usually empty.
+
+--- reply 3 (15 votes) ---
+Empty office hours is the biggest unused resource here and I say that having wasted a year not going
 
 ## Sample Answer
 
