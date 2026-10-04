@@ -133,52 +133,39 @@ Empty office hours is the biggest unused resource here and I say that having was
 
 ## Sample Answer
 
-<!-- One complete question and answer, pasted as text, with the source line
-     visible. Milestone 4. -->
+**Question:** How much RAM do students recommend for a laptop used for CS courses?
 
-**Question:**
+**Answer:** Students recommend 16GB of RAM for a laptop used for CS courses.
 
-**Answer:**
+**Source:** `thread_laptop_specs.txt`
 
-```
-```
+### Relevance Cutoff
 
-**My relevance cutoff:**
+I used a relevance cutoff of **0.65**. I chose this value by comparing the best retrieval distances for five questions that the corpus should answer with five questions that are outside the scope of the corpus.
 
-<!-- The number you set in config.py, and how you got there.
+**In-scope questions — best distances:**
 
-     You ran five questions your corpus covers and the five in OUT_OF_SCOPE
-     that it clearly doesn't, and wrote down the best distance for each. What
-     did those two groups look like? Where was the gap? Put the actual numbers
-     here — the table below wants all ten rows.
+- Bike/winter conditions: `0.521`
+- Summer internship timing: `0.239`
+- Laptop RAM: `0.200`
+- Meal plan tier: `0.322`
+- Professor email response time: `0.429`
 
-     Milestone 4. -->
+**Out-of-scope questions — best distances:**
 
-| Question | In corpus? | Best distance |
-|---|---|---|
-|  |  |  |
+- Capital of Mongolia: `0.939`
+- Changing oil in a diesel engine: `0.930`
+- 1994 World Cup winner: `0.952`
+- Recommended ibuprofen dosage: `0.782`
+- Writing a for loop in Rust: `0.871`
 
-## How I Used AI
+The highest distance among the in-scope questions was `0.521`, while the lowest distance among the out-of-scope questions was `0.782`. I chose `0.65` because it falls comfortably between those two groups.
 
-<!-- Two specific moments. For each: what you asked for, what came back, and
-     what you changed about it.
+With this cutoff, all five in-scope questions passed the relevance gate and produced grounded answers. All five out-of-scope questions were rejected with:
 
-     "I asked Claude to write the chunking function from my notes. It ignored
-     the overlap, so I added that myself" is the level of detail we're after.
-     "I used AI to help me code" is not.
+`I don't have enough information about that.`
 
-     Milestone 5. -->
-
-**1.**
-
-**2.**
-
-<!-- ── Stretch features ─────────────────────────────────────────────────────
-     Doing one? Say so here BEFORE you start. A feature this README never
-     claims earns nothing.
-     ───────────────────────────────────────────────────────────────────────── -->
-
----
+The rejected questions made zero model calls because the relevance gate stopped them before answer generation.
 
 # Unit 2
 
